@@ -1,0 +1,110 @@
+{
+    "lang": {
+        "en": "ENGLISH",
+        "es": "SPANISH"
+    },
+
+    "nav": {
+        "home": "HOME",
+        "about": "ABOUT",
+        "library": "LIBRARY",
+        "courses": "COURSES",
+        "blog": "BLOG",
+        "login": "LOGIN",
+        "logout": "LOGOUT",
+        "categories": "CATEGORIES",
+        "species": "SPECIES"
+    },
+
+    "about": {
+        "title": "About Us",
+        "subtitle": "Journey to Nature",
+        "missionvision": "Mission and Vision"
+    },
+
+    "colormode": {
+        "light": "Light Mode",
+        "dark": "Dark Mode"
+    },
+
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "access": "Access"
+    },
+
+    "tablecourses": {
+        "course": "COURSE",
+        "capacity": "CAPACITY",
+        "price": "PRICE",
+        "hours": "HOURS",
+        "startdate": "START DATE",
+        "enddate": "END DATE",
+        "icon": "ICON",
+        "description": "DESCRIPTION",
+        "actions": "ACTIONS",
+        "edit": "EDIT",
+        "delete": "DELETE"
+    },
+
+    "formcourses": {
+        "title": "Courses Maintainers",
+        "courses": "Courses",
+        "course": "Course",
+        "capacity": "Capacity",
+        "price": "Price",
+        "hours": "Hours",
+        "startdate": "Start Date",
+        "enddate": "End Date",
+        "icon": "Icon",
+        "description": "Description",
+        "add": "Add Course",
+        "active": "Active",
+        "inactive": "Inactive"
+    },
+
+    "formcategories": {
+        "title": "Categories Maintainers",
+        "categories": "Categories",
+        "category": "Category",
+        "classification": "Classification",
+        "description": "Description",
+        "add": "Add Category" 
+    },
+
+    "tablecategories": {
+        "category": "CATEGORY",
+        "classification": "CLASSIFICATION",
+        "description": "DESCRIPTION",
+        "actions": "ACTIONS",
+        "edit": "EDIT",
+        "delete": "DELETE"
+    },
+
+    "formspecies": {
+        "title": "Species Maintainers",
+        "species": "Species",
+        "name": "Species Name",
+        "category": "Category",
+        "scientificname": "Scientific Name",
+        "origin": "Origin",
+        "habitat": "Habitat",
+        "classification": "Classification",
+        "information": "General Information",
+        "add": "Add Species"
+    },
+
+    "tablespecies": {
+        "name": "SPACES NAME",
+        "category": "CATEGORY",
+        "scientificname": "SCIENTIFIC NAME",
+        "origin": "ORIGIN",
+        "habitat": "HABITAT",
+        "classification": "CLASSIFICATION",
+        "information": "GENERAL INFORMATION",
+        "actions": "ACTIONS",
+        "edit": "EDIT",
+        "delete": "DELETE"
+    }
+}
