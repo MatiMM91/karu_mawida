@@ -16,18 +16,33 @@
         "species": "ESPECIES"
     },
 
+    "home": {
+        "title": "Valdivia, Cultura y Naturaleza",
+        "subtitle": "“Conservación es un estado de armonía entre el hombre y la tierra” Aldo Leopold.",
+        "library": "Biblioteca",
+        "lastspecies": "Última Especie",
+        "courses": "Cursos",
+        "nextcourse": "Próximo Curso",
+        "latestblogs": "Últimos Blogs"
+    },
+
     "about": {
-        "title": "Acerca de Nosotros",
+        "title": "Acerca de Karü Mawida",
         "subtitle": "Viaje a lo Natural",
         "leaduno": "Este Parque nace desde el amor, la admiración, el respeto profundo y sincero que sentimos hacia la naturaleza, reconocemos en ella a la mejor maestra de la verdad, nuestra gran escuela y el hogar de tantos seres vivos… nuestro hogar.",
         "leaddos": "Es por ello que nos propusimos proteger y restaurar activamente este bosque y vega-humedal, que comprende 5,5 hectáreas, las cuales hemos dividido en tres sectores (todas en proceso de restauración y regeneración natural):",
-        "leadtres": " 1-Sector Vega-Humedal 2-Sector Bosque Mixto (Especies nativas e introducidas) 3-Sector Bosque Nativo (Principalmente).",
-        "bodyuno": "Este terreno fue parcialmente explotado hace unas décadas, la extracción maderera de árboles nativos era muy notoria, sin embargo aún en los alrededores  se conservan algunos árboles antiguos donde podemos apreciar y destacar increíbles ejemplares de mañios de hojas largas y coigües, que albergan a su alrededor un bosque nativo original compuesto de árboles como el arrayán, laurel, olivillo, canelo, radal, notro, roble y ulmo, y otras especies como copihues, botellitas, voqui colorado, quilineja, orquídea nativa, viola rubella, vitalahuen, helechos, entre otras.",
-        "bodydos": "“Conservación es un estado de armonía entre el hombre y la tierra” Aldo Leopold.",
-        "bodytres": "El proyecto en cuestión tiene un espíritu de conservación y restauración, es decir buscamos proteger, preservar la flora y fauna presentes en el territorio; como también buscamos recuperar y ayudar a la regeneración del bosque, integrando cuidadosa y responsablesamente otras especies nativas que aporten a la biodiversidad propia del lugar, enriqueciendo el ecosistema, y retornándole así, su identidad original con su belleza endémica.",
+        "sectorone": "Vega-Humedal.",
+        "sectortwo": "Bosque Mixto (Especies nativas e introducidas).",
+        "sectorthree": "Bosque Nativo (Principalmente).",
+        "bodyone": "Este terreno fue parcialmente explotado hace unas décadas, la extracción maderera de árboles nativos era muy notoria, sin embargo aún en los alrededores  se conservan algunos árboles antiguos donde podemos apreciar y destacar increíbles ejemplares de mañios de hojas largas y coigües, que albergan a su alrededor un bosque nativo original compuesto de árboles como el arrayán, laurel, olivillo, canelo, radal, notro, roble y ulmo, y otras especies como copihues, botellitas, voqui colorado, quilineja, orquídea nativa, viola rubella, vitalahuen, helechos, entre otras.",
+        "bodytwo": "El proyecto en cuestión tiene un espíritu de conservación y restauración, es decir buscamos proteger, preservar la flora y fauna presentes en el territorio; como también buscamos recuperar y ayudar a la regeneración del bosque, integrando cuidadosa y responsablesamente otras especies nativas que aporten a la biodiversidad propia del lugar, enriqueciendo el ecosistema, y retornándole así, su identidad original con su belleza endémica.",
         "missionvision": "Misión y Visión",
         "vision": "Nuestra Visión es crear un espacio de conexión profunda, un “puente” entre los seres humanos y la naturaleza, que promueva el sentir, vibrar y el ser, y desde allí reparar nuestro daño y repararnos a nosotros mismos en ese acto.",
         "mission": "Nuestra Misión e intención es generar un espacio sagrado para el intercambio del buen conocimiento, para “aprender haciendo” a través de diferentes herramientas, oficios y disciplinas que sean conscientes con la naturaleza, que nos den a conocer el gran valor y el respeto que debemos cultivar hacia la biodiversidad de cada lugar, como parte de nuestro patrimonio. Facilitando talleres que permitan también el autoconocimiento a través de encuentros en y con la naturaleza donde aprendamos apreciar nuestra-su complejidad y nuestra-su tan amplia expresión de belleza, y experimentar la plenitud de “estar y ser” parte de esta inmensidad"
+    },
+
+    "blog": {
+        "title": "Blog"
     },
 
     "colormode": {
@@ -49,7 +64,7 @@
         "hours": "HORAS",
         "startdate": "FECHA INICIO",
         "enddate": "FECHA TERMINO",
-        "icon": "ICONO",
+        "img": "IMAGEN",
         "description": "DESCRIPCIÓN",
         "actions": "ACCIONES",
         "edit": "EDITAR",
@@ -65,7 +80,7 @@
         "hours": "Horas",
         "startdate": "Fecha Inicio",
         "enddate": "Fecha Termino",
-        "icon": "Icono",
+        "img": "Imagen",
         "description": "Descripción",
         "add": "Agregar Curso",
         "active": "Activo",

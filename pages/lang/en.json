@@ -16,10 +16,24 @@
         "species": "SPECIES"
     },
 
+    "home": {
+        "title": "Valdivia, Culture and Nature",
+        "subtitle": "“Conservación es un estado de armonía entre el hombre y la tierra” Aldo Leopold.",
+        "library": "Library",
+        "lastspecies": "Last Species",
+        "courses": "Courses",
+        "nextcourse": "Next Course",
+        "latestblogs": "Latest Blogs"
+    },
+
     "about": {
-        "title": "About Us",
+        "title": "About Karü Mawida",
         "subtitle": "Journey to Nature",
         "missionvision": "Mission and Vision"
+    },
+
+    "blog": {
+        "title": "Blog"
     },
 
     "colormode": {
@@ -41,7 +55,7 @@
         "hours": "HOURS",
         "startdate": "START DATE",
         "enddate": "END DATE",
-        "icon": "ICON",
+        "img": "IMAGE",
         "description": "DESCRIPTION",
         "actions": "ACTIONS",
         "edit": "EDIT",
@@ -57,7 +71,7 @@
         "hours": "Hours",
         "startdate": "Start Date",
         "enddate": "End Date",
-        "icon": "Icon",
+        "img": "Image",
         "description": "Description",
         "add": "Add Course",
         "active": "Active",

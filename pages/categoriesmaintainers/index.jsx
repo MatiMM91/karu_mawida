@@ -5,10 +5,11 @@ import {
     Stack, 
     Typography,
 }                       from "@mui/material"
+import axios            from "axios"
 import { useRouter }    from "next/router"
 import { useState }     from "react"
-import AddCategories    from "../components/AddCategories"
-import CategoriesTable  from "../components/CategoriesTable"
+import AddCategories    from "../components/categories/AddCategories"
+import CategoriesTable  from "../components/categories/CategoriesTable"
 import en               from '../lang/en'
 import es               from '../lang/es'
 // END IMPORTS 
@@ -59,5 +60,6 @@ const index = () => {
     </>
     )
 }
-export default index
 // END COMPONENT
+
+export default index

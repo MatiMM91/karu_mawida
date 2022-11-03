@@ -1,17 +1,16 @@
 // IMPORTS
 import '../styles/globals.css'
-import styles       from '../styles/Home.module.css'
-import Head         from 'next/head'
-import {useState}   from 'react'
+import 'react-toastify/dist/ReactToastify.css'
+import Head             from 'next/head'
+import {useState}       from 'react'
 import {
     ThemeProvider,
     createTheme,
     Paper,
-    Stack,
-    Typography,
-}                   from '@mui/material'
-import Navbar       from './components/Navbar'
-import Image        from 'next/image'
+}                       from '@mui/material'
+import Navbar           from './components/navbar/Navbar'
+import Footer           from './components/Footer'
+import {ToastContainer} from 'react-toastify'
 // END IMPORTS
 
 // COMPONENT
@@ -48,34 +47,16 @@ function MyApp({ Component, pageProps }) {
                     themeMode={isDark}
                     changeTheme={changeIsDark}   
                 />
+                <ToastContainer/>
                 <Component 
                     {...pageProps} 
                     themeMode={isDark}
                     changeTheme={changeIsDark}    
                 />
-                <footer className={styles.footer}>
-                    <Stack 
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="flex-start"
-                        className={styles.footerlogo} 
-                        sx={{margin:'15px 0'}}
-                    >
-                        <Image src="/images/karuLogo.png" alt="Karu Logo" width={80} height={80} />
-                        {
-                            isDark ?
-                            <Image src='/images/nombrelogoclaro.png' alt='Nombre' width={140} height={30}/>
-                            :
-                            <Image src='/images/nombrelogo.png' alt='Nombre' width={140} height={30}/>
-                        }
-                        <Typography variant='body2'>
-                            Powered by 
-                            <Stack sx={{fontWeight:'bold'}}>
-                                IBCode
-                            </Stack>
-                        </Typography>
-                    </Stack>
-                </footer>
+                <Footer
+                    themeMode={isDark}
+                    changeTheme={changeIsDark}   
+                />
             </Paper>
         </ThemeProvider>
     </>

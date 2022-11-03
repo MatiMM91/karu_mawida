@@ -9,12 +9,13 @@ import { useRouter }    from "next/router"
 import { useState }     from "react"
 import en               from '../lang/en'
 import es               from '../lang/es'
-import AddCourses       from "../components/AddCourses"
-import CoursesTable     from "../components/CoursesTable"
+import AddCourses       from "../components/courses/AddCourses"
+import CoursesTable     from "../components/courses/CoursesTable"
+import axios            from "axios"
 // END IMPORTS
 
 // COMPONENT
-const index = () => {
+const index = ({courses}) => {
     const {asPath, locale, pathname} = useRouter()
     const t = locale === 'en' ? en : es
 
@@ -45,7 +46,9 @@ const index = () => {
                 open === true ?
                     <AddCourses/>
                 :
-                    <CoursesTable/>
+                    <CoursesTable
+                        courses={courses}
+                    />
             }
         </Box>
         <style jsx global>{`
@@ -60,5 +63,15 @@ const index = () => {
     </>
     )
 }
-export default index
 // END COMPONENT
+// BACKEND
+export const getServerSideProps = async (context) => {
+    const { data: courses} = await axios.get("http://localhost:3000/api/courses")
+    return {
+        props: {
+            courses,
+        }
+    }
+}
+// END BACKEND
+export default index

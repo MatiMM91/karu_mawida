@@ -7,8 +7,8 @@ import {
 }                       from "@mui/material"
 import { useRouter }    from "next/router"
 import { useState }     from "react"
-import AddSpecies       from "../components/AddSpecies"
-import SpeciesTable     from "../components/SpeciesTable"
+import AddSpecies       from "../components/species/AddSpecies"
+import SpeciesTable     from "../components/species/SpeciesTable"
 import en               from '../lang/en'
 import es               from '../lang/es'
 // END IMPORTS

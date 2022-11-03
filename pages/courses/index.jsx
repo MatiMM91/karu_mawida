@@ -3,14 +3,15 @@ import {
     Box, 
     Typography,  
 }                       from "@mui/material"
-import CoursesCard      from "../components/CoursesCard"
+import CoursesCard      from "../components/courses/CoursesCard"
 import { useRouter }    from "next/router"
 import en               from '../lang/en'
 import es               from '../lang/es'
+import axios            from "axios"
 // END IMPORTS
 
 // COMPONENT
-const index = () => {
+const index = ({courses}) => {
     const {asPath, locale, pathname} = useRouter()
     const t = locale === 'en' ? en : es
 
@@ -20,7 +21,7 @@ const index = () => {
             <Typography variant='h3'>
                 {t.formcourses.courses}
             </Typography>
-            <CoursesCard/>
+            <CoursesCard courses={courses}/>
         </Box>
         <style jsx global>{`
             .courses {
@@ -34,3 +35,13 @@ const index = () => {
 }
 export default index
 // END COMPONENT
+// BACKEND
+export const getServerSideProps = async (context) => {
+    const { data: courses} = await axios.get("http://localhost:3000/api/courses")
+    return {
+        props: {
+            courses,
+        }
+    }
+}
+// END BACKEND
