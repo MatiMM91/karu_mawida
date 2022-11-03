@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "Test Blog 1",
+        "text": "Este es un blog de prueba para el carrusel con los últimos blogs",
+        "date": "11-10-2022"
+    },
+    {
+        "id": 2,
+        "title": "Test Blog 2",
+        "text": "Este es un blog de prueba para el carrusel con los últimos blogs",
+        "date": "10-10-2022"
+    },
+    {
+        "id": 3,
+        "title": "Test Blog 3",
+        "text": "Este es un blog de prueba para el carrusel con los últimos blogs",
+        "date": "10-10-2022"
+    },
+    {
+        "id": 4,
+        "title": "Test Blog 4",
+        "text": "Este es un blog de prueba para el carrusel con los últimos blogs",
+        "date": "09-10-2022"
+    },
+    {
+        "id": 5,
+        "title": "Test Blog 5",
+        "text": "Este es un blog de prueba para el carrusel con los últimos blogs",
+        "date": "6-10-2022"
+    }
+]
