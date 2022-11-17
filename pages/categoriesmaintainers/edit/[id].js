@@ -3,23 +3,23 @@ import {
     Stack, 
     Typography 
 }                       from '@mui/material'
-import AddCourses       from '../../components/courses/AddCourses'
+import AddCategories    from '../../components/categories/AddCategories'
 
-const editcourse = () => {
+const editcategory = () => {
     return (<>
-    <Box className='coursesmaintainers'>
+    <Box className='categoriesmaintainers'>
         <Stack 
             direction={{ xs: 'column', sm: 'row' }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
         >
             <Typography variant='h3'>
-                Editar Curso
+                Editar Categoría
             </Typography>
         </Stack>
-        <AddCourses/>
+        <AddCategories/>
     </Box>
     <style jsx global>{`
-        .coursesmaintainers {
+        .categoriesmaintainers {
             min-height:     80vh;
             padding:        0 60px;
             padding-top:    100px;
@@ -27,7 +27,6 @@ const editcourse = () => {
 
         }
     `}</style>
-    </>
-  )
+    </>)
 }
-export default editcourse
+export default editcategory

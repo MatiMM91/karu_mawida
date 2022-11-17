@@ -1,5 +1,5 @@
-// IMPORTS
-import { Delete, 
+import { 
+    Delete, 
     Edit 
 }                       from "@mui/icons-material"
 import { 
@@ -16,15 +16,11 @@ import {
 }                       from "@mui/material"
 import { useRouter }    from "next/router"
 import { useState }     from "react"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
-// END IMPORTS
+import axios            from "axios"
+import {toast}          from "react-toastify"
 
-// COMPONENT
-const CategoriesTable = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
-
+const CategoriesTable = ({categories}) => {
+    const router = useRouter()
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -33,6 +29,15 @@ const CategoriesTable = () => {
     const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
   
+    const handlerDelete = async (id) => {
+        try {
+            await axios.delete('/api/categories/' + id)
+            router.push('/categoriesmaintainers')          
+        } catch (error) {
+            toast.error(error.response.data.message)
+        }
+    }
+
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
     };
@@ -42,51 +47,61 @@ const CategoriesTable = () => {
       setPage(0);
     };
 
-    return (
-    <>
-        <TableContainer component={Paper} className="table">
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>{t.tablecategories.category}</TableCell>
-                        <TableCell>{t.tablecategories.classification}</TableCell>
-                        <TableCell>{t.tablecategories.description}</TableCell>
-                        <TableCell align="center">{t.tablecategories.actions}</TableCell>
-                    </TableRow>    
-                </TableHead>
-                <TableBody>
+    return (<>
+    <TableContainer component={Paper} className="table">
+        <Table>
+            <TableHead>
                 <TableRow>
-                        <TableCell>fsdkjgh</TableCell>    
-                        <TableCell>fsdkjgh</TableCell>     
-                        <TableCell>fsdkjghsdfasdfasdfasdfasdfasdfasdfas</TableCell>    
+                    <TableCell sx={{fontWeight:'bold'}}>CATEGORÍA</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>CLASIFICACIÓN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>DESCRIPCIÓN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">ACCIONES</TableCell>
+                </TableRow>    
+            </TableHead>
+            <TableBody>
+            {
+                categories.map(category => (
+                    <TableRow key={category.id}>
+                        <TableCell>{category.categoria}</TableCell>    
+                        <TableCell>{category.clasificacion}</TableCell>     
+                        <TableCell>{category.descripcion}</TableCell>    
                         <TableCell>
-                            <IconButton><Edit/></IconButton>
-                            <IconButton><Delete/></IconButton>
+                            <IconButton 
+                                className='actions'
+                                onClick={() => router.push('/categoriesmaintainers/edit/' + category.id)}
+                            >
+                                <Edit/>
+                            </IconButton>
+                            <IconButton 
+                                className='actions' 
+                                onClick={() => handlerDelete(category.id)}
+                            >
+                                <Delete/>
+                            </IconButton>
                         </TableCell>    
-                    </TableRow>  
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            count={rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
                     </TableRow>
-                </TableFooter>
-            </Table>    
-        </TableContainer>
-        <style jsx global>{`
-            .table {
-                margin-top: 15px;
+                ))
             }
-        `}</style> 
-    </>
-    )
+            </TableBody>
+            <TableFooter>
+                <TableRow>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </TableRow>
+            </TableFooter>
+        </Table>    
+    </TableContainer>
+    <style jsx global>{`
+        .table {
+            margin-top: 15px;
+        }
+    `}</style> 
+    </>)
 }
-
 export default CategoriesTable
-// END COMPONENT

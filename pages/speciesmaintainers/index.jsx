@@ -1,22 +1,22 @@
-// IMPORTS
 import { 
     Box,
     Button,
     Stack, 
     Typography,
 }                       from "@mui/material"
-import { useRouter }    from "next/router"
 import { useState }     from "react"
 import AddSpecies       from "../components/species/AddSpecies"
 import SpeciesTable     from "../components/species/SpeciesTable"
-import en               from '../lang/en'
-import es               from '../lang/es'
-// END IMPORTS
+import axios            from 'axios'
+import { 
+    unstable_getServerSession 
+}                       from "next-auth"
+import { authOptions }  from "../api/auth/[...nextauth]"
 
-// COMPONENT
-const index = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
+const index = ({species, categories}) => {
+    // const { data: session } = useSession({
+    //     required: true
+    // })
 
     const [open, setOpen] = useState(false)
     
@@ -24,42 +24,64 @@ const index = () => {
         setOpen(!open)
     }
 
-    return (
-    <>
-        <Box className='speciesmaintainers'>
-            <Stack 
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={{ xs: 1, sm: 2, md: 4 }}
-            >
-                <Typography variant='h3'>{t.formspecies.title}</Typography>
-                <Button onClick={handleOpen} sx={{fontWeight: 'bold'}}>
-                    {
-                        open ?
-                        t.formspecies.species
-                        :
-                        t.formspecies.add
-                    }
-                </Button>
-            </Stack>
-            {
-                open ?
-                    <AddSpecies/>
-                :
-                    <SpeciesTable/>
-            }
-        </Box>
-        <style jsx global>{`
-            .speciesmaintainers {
-                min-height:     100vh;
-                padding:        0 60px;
-                padding-top:    100px;
-                padding-bottom: 40px;
+    return (<>
+    <Box className='speciesmaintainers'>
+        <Stack 
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+        >
+            <Typography variant='h3'>Mantenedor de Especies</Typography>
+            <Button onClick={handleOpen} sx={{fontWeight: 'bold'}}>
+                {
+                    open ?
+                        'Especies'
+                    :
+                        'Agregar Especie'
+                }
+            </Button>
+        </Stack>
+        {
+            open ?
+                <AddSpecies
+                    categories={categories}
+                />
+            :
+                <SpeciesTable
+                    species={species}
+                />
+        }
+    </Box>
+    <style jsx global>{`
+        .speciesmaintainers {
+            min-height:     100vh;
+            padding:        0 60px;
+            padding-top:    100px;
+            padding-bottom: 40px;
 
-            }
-        `}</style>
-    </>
-    )
+        }
+    `}</style>
+    </>)
 }
 
+export const getServerSideProps = async (context) => {
+    const { data: species} = await axios.get("http://localhost:3000/api/species")
+    const { data: categories} = await axios.get("http://localhost:3000/api/categories")
+    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/login",
+                permanent: false,
+            }
+        }        
+    }
+
+    return {
+        props: {
+            species,
+            categories,
+        }
+    }
+}
 export default index
-// END COMPONENT

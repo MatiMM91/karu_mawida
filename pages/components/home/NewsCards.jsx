@@ -1,50 +1,39 @@
-// IMPORTS
-import { 
-    Box, 
-    Grid,
-}                       from "@mui/material"
-import { useRouter }    from "next/router"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
+import { Grid }         from "@mui/material"
 import NewsCoursesCard  from "./NewsCoursesCard"
 import NewsLibraryCard  from "./NewsLibraryCard"
-// END IMPORTS
-// COMPONENT
-const NewsCards = ({themeMode, changeTheme}) => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
-    return (
-    <>
-        <Box>
-            <Grid container spacing={2} className='newscards'>
-                <Grid item xs={6} className='news'>
-                    <NewsLibraryCard
-                        themeMode={themeMode}
-                        changeTheme={changeTheme}
-                    />
-                </Grid>
-                <Grid item xs={6} className='news'>    
-                    <NewsCoursesCard
-                        themeMode={themeMode}
-                        changeTheme={changeTheme}
-                    />
-                </Grid>
-            </Grid>
-        </Box>
-        <style jsx global>{`
-            .newscards {  
-                margin-top: 18px;
-            }
-            
+
+const NewsCards = ({themeMode, changeTheme, species, courses}) => {
+    return (<>
+    <Grid container spacing={4} className='news'>
+        <Grid item xs={12} className='newscards'>
+            <NewsLibraryCard
+                themeMode={themeMode}
+                changeTheme={changeTheme}
+                species={species}   
+            />
+        </Grid>
+        <Grid item xs={12} className='newscards'>    
+            <NewsCoursesCard
+                themeMode={themeMode}
+                changeTheme={changeTheme}
+                courses={courses}
+            />
+        </Grid>
+    </Grid>
+    <style jsx global>{`
+        .newscards {
+            display: flex;
+            flex-diretion: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        @media only screen and (max-width: 900px) {
             .news {
-                display: flex;
-                flex-diretion: row;
-                justify-content: space-around;
-                align-items: center;
+                margin: 25px 0;
             }
-        `}</style>    
-    </>
-    )
+        }
+    `}</style>    
+    </>)
 }
 export default NewsCards
-// END COMPONENT

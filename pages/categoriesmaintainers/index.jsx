@@ -1,4 +1,3 @@
-// IMPORTS
 import { 
     Box,
     Button,
@@ -6,60 +5,75 @@ import {
     Typography,
 }                       from "@mui/material"
 import axios            from "axios"
-import { useRouter }    from "next/router"
 import { useState }     from "react"
 import AddCategories    from "../components/categories/AddCategories"
 import CategoriesTable  from "../components/categories/CategoriesTable"
-import en               from '../lang/en'
-import es               from '../lang/es'
-// END IMPORTS 
-// COMPONENT
-const index = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
+import { authOptions }  from "../api/auth/[...nextauth]"
+import { 
+    unstable_getServerSession 
+}                       from "next-auth"
 
+const index = ({categories}) => {
     const [open, setOpen] = useState(false)
  
     const handleOpen = () => {
         setOpen(!open)
     }
 
-    return (
-    <>
-        <Box className='categoriesmaintainers'>
-            <Stack 
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={{ xs: 1, sm: 2, md: 4 }}
-            >
-                <Typography variant='h3'>{t.formcategories.title}</Typography>
-                <Button onClick={handleOpen} sx={{fontWeight: 'bold'}}>
-                    {
-                        open ?
-                        t.formcategories.categories
-                        :
-                        t.formcategories.add
-                    }
-                </Button>
-            </Stack>
-            {
-                open ?
-                    <AddCategories/>
-                : 
-                    <CategoriesTable/>
-            }
-        </Box>
-        <style jsx global>{`
-            .categoriesmaintainers {
-                min-height:     100vh;
-                padding:        0 60px;
-                padding-top:    100px;
-                padding-bottom: 40px;
+    return (<>
+    <Box className='categoriesmaintainers'>
+        <Stack 
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+        >
+            <Typography variant='h3'>Mantenedor de Categorías</Typography>
+            <Button onClick={handleOpen} sx={{fontWeight: 'bold'}}>
+                {
+                    open ?
+                        'Categorías'
+                    :
+                        'Agregar Categoría'
+                }
+            </Button>
+        </Stack>
+        {
+            open ?
+                <AddCategories/>
+            : 
+                <CategoriesTable
+                    categories={categories}
+                />
+        }
+    </Box>
+    <style jsx global>{`
+        .categoriesmaintainers {
+            min-height:     100vh;
+            padding:        0 60px;
+            padding-top:    100px;
+            padding-bottom: 40px;
 
-            }
-        `}</style>
-    </>
-    )
+        }
+    `}</style>
+    </>)
 }
-// END COMPONENT
 
+export const getServerSideProps = async (context) => {
+    const { data: categories} = await axios.get("http://localhost:3000/api/categories")
+    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false
+            }
+        }        
+    }
+
+    return {
+        props: {
+            categories,
+        }
+    }
+}
 export default index

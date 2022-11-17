@@ -1,25 +1,20 @@
-// IMPORTS
 import { 
     Box, 
+    Typography, 
 }                       from "@mui/material"
-import { useRouter }    from "next/router"
-import en               from '../lang/en'
-import es               from '../lang/es'
 import MissionVision    from "../components/about/MissionVision"
 import SectorsList      from "../components/about/SectorsList"
 import AboutLead        from "../components/about/AboutLead"
 import AboutBody        from "../components/about/AboutBody"
-import AboutBanner      from "../components/about/AboutBanner"
-// END IMPORTS
-// COMPONENT
-const index = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
+import Banner           from '../components/home/Banner'
 
-    return (
-    <>
+const index = () => {
+    return (<>
+    <Banner/>
     <Box className='about'>
-        <AboutBanner/>
+        <Typography variant='h3'>
+            Acerca de karü Mawida
+        </Typography>
         <AboutLead/>
         <SectorsList/>
         <AboutBody/>
@@ -29,12 +24,10 @@ const index = () => {
         .about {
             min-height:     84vh;
             padding:        0 60px;
-            padding-top:    100px;
+            padding-top:    80px;
             padding-bottom: 30px;
         }
     `}</style>
-    </>
-    )
+    </>)
 }
 export default index
-// END COMPONENT

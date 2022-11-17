@@ -1,4 +1,3 @@
-// IMPORTS
 import { 
     Box, 
     Button, 
@@ -6,38 +5,117 @@ import {
     TextField,
 }                       from "@mui/material"
 import { useRouter }    from "next/router"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
-// END IMPORTS 
+import { 
+    useEffect, 
+    useState 
+}                       from "react"
+import {toast}          from "react-toastify"
+import axios            from "axios"
 
-// COMPONENT
 const AddCategories = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
+    const router = useRouter()
+    const [category, setCategory] = useState({
+        categoria: "",
+        clasificacion: "",
+        descripcion: '',
+    })
 
-    return (
-    <>
-        <Box component='form' className='form'>
-            <FormControl>
-                <TextField className='inputs' variant='standard' label={t.formcategories.category}/>
-                <TextField className='inputs' variant='standard' label={t.formcategories.classification}/>
-                <TextField className='inputs' variant='standard' label={t.formcategories.description} multiline/>
-                <Button variant="contained" className='inputs'>{t.formcategories.add}</Button>
-            </FormControl>
-        </Box>
-        <style jsx global>{`
-            .form {
-                display:        flex;
-                flex-direction: column;
-                padding: 0 60px;
+    const handleSubmit = async e => {
+        e.preventDefault()
+        try {
+            if (router.query.id) {
+                await axios.put('/api/categories/' + router.query.id, category)
+                toast.success('Category updated successfully')
+            } else {
+                await axios.post('/api/categories', category)
+                toast.success('Category created successfully')
             }
+            router.push('/categoriesmaintainers')
+        } catch (error) {
+            toast.error(error.response.data.message)
+        }
+    }
 
-            .inputs {
-                margin-top:    15px;
+    const handleChange = ({target: {name, value}}) => {
+        setCategory({ ...category, [name]: value})
+    }
+
+    useEffect(() => {
+        const getCategory = async () => {
+            const {data} = await axios.get('/api/categories/' + router.query.id)
+            setCategory(data)
+        }
+
+        if (router.query.id) {
+            getCategory(router.query.id)
+        }
+    }, [])
+
+    return (<>
+    <Box component='form' className='form'>
+        <FormControl>
+            <TextField 
+                name='categoria'
+                className='inputs' 
+                variant='standard' 
+                label='Categoría'
+                value={category.categoria}
+                onChange={handleChange}
+            />
+            <TextField 
+                name='clasificacion'
+                className='inputs' 
+                variant='standard' 
+                label='Clasificación'
+                value={category.clasificacion}
+                onChange={handleChange}
+            />
+            <TextField
+                name='descripcion' 
+                className='inputs' 
+                variant='standard' 
+                label='Descripción'
+                value={category.descripcion}
+                onChange={handleChange}
+                multiline
+            />
+            <Button 
+                variant="contained" 
+                className='inputs' 
+                onClick={handleSubmit} 
+            >
+                {
+                router.query.id ?    
+                    'Editar'
+                :
+                    'Agregar'
+                }
+            </Button>
+            {
+            router.query.id ?
+                <Button
+                    variant="contained" 
+                    className='inputs'
+                    onClick={() => router.back()}
+                >
+                    Volver    
+                </Button>
+            :
+                null    
             }
-        `}</style>
-    </>
-    )
+        </FormControl>
+    </Box>
+    <style jsx global>{`
+        .form {
+            display:        flex;
+            flex-direction: column;
+            padding: 0 60px;
+        }
+
+        .inputs {
+            margin-top:    15px;
+        }
+    `}</style>
+    </>)
 }
 export default AddCategories
-// END COMPONENT

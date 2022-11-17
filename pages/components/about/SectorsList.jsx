@@ -1,4 +1,3 @@
-// IMPORTS
 import { 
     Forest, 
     Grass, 
@@ -10,24 +9,16 @@ import {
     ListItemIcon, 
     ListItemText 
 }                       from "@mui/material"
-import { useRouter }    from "next/router"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
-// END IMPORTS
-// COMPONENT
-const SectorsList = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
 
-    return (
-    <>
+const SectorsList = () => {
+    return (<>
     <Grid container spacing={2} className="sectors">
         <Grid item xs={12} sm={12} md={4}>
             <ListItem>
                 <ListItemIcon>
                     <Grass fontSize='large' color='primary'/>
                 </ListItemIcon>
-                <ListItemText primary={t.about.sectorone} />
+                <ListItemText primary='"Vega-Humedal' />
             </ListItem>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -35,7 +26,7 @@ const SectorsList = () => {
                 <ListItemIcon>
                     <Forest fontSize='large' color='primary'/>
                 </ListItemIcon>
-                <ListItemText primary={t.about.sectortwo} />
+                <ListItemText primary='Bosque Mixto (Especies nativas e introducidas)' />
             </ListItem>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -43,7 +34,7 @@ const SectorsList = () => {
                 <ListItemIcon>
                     <Park fontSize='large' color='primary'/>
                 </ListItemIcon>
-                <ListItemText primary={t.about.sectorthree} />
+                <ListItemText primary='Bosque Nativo (Principalmente)' />
             </ListItem>
         </Grid>
     </Grid>
@@ -52,8 +43,6 @@ const SectorsList = () => {
             margin: 60px 0px;
         }
     `}</style>
-    </>
-    )
+    </>)
 }
 export default SectorsList
-// END COMPONENT

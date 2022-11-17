@@ -1,4 +1,3 @@
-// IMPORTS
 import { 
     Box, 
     Card, 
@@ -8,18 +7,12 @@ import {
 }                       from '@mui/material'
 import { useRouter }    from "next/router"
 import { 
-    useEffect, 
     useState 
 }                       from 'react'
 import axios            from 'axios'
-import en               from '../../lang/en'
-import es               from '../../lang/es'
 import moment           from 'moment'
-// END IMPORTS
-// COMPONENT
+
 const course = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
     const router = useRouter()
     
     const [course, setCourse] = useState({
@@ -41,9 +34,7 @@ const course = () => {
     
     getCourse(router.query.id)
     
-
-    return (
-    <>
+    return (<>
     <Box className='course'>
         <Typography variant='h3' name='curso'>
             {course.curso}
@@ -88,8 +79,6 @@ const course = () => {
             padding-bottom: 40px;
         }
     `}</style>
-    </>
-  )
+    </>)
 }
-// END COMPONENT
 export default course

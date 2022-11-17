@@ -1,5 +1,5 @@
-// IMPORTS
-import { Delete, 
+import { 
+    Delete, 
     Edit 
 }                       from "@mui/icons-material"
 import { 
@@ -16,14 +16,11 @@ import {
 }                       from "@mui/material"
 import { useRouter }    from "next/router"
 import { useState }     from "react"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
-// END IMPORTS
-// COMPONENT
-const SpeciesTable = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
+import axios            from "axios"
+import {toast}          from "react-toastify"
 
+const SpeciesTable = ({species}) => {
+    const router = useRouter()
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -32,6 +29,15 @@ const SpeciesTable = () => {
     const emptyRows =
       page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
   
+    const handlerDelete = async (id) => {
+        try {
+            await axios.delete('/api/species/' + id)
+            router.push('/speciesmaintainers')          
+        } catch (error) {
+            toast.error(error.response.data.message)
+        }
+    }
+
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
     };
@@ -41,58 +47,69 @@ const SpeciesTable = () => {
       setPage(0);
     };
 
-    return (
-    <>
-        <TableContainer component={Paper} className="table">
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>{t.tablespecies.name}</TableCell>
-                        <TableCell>{t.tablespecies.category}</TableCell>
-                        <TableCell>{t.tablespecies.scientificname}</TableCell>
-                        <TableCell>{t.tablespecies.origin}</TableCell>
-                        <TableCell>{t.tablespecies.habitat}</TableCell>
-                        <TableCell>{t.tablespecies.classification}</TableCell>
-                        <TableCell>{t.tablespecies.information}</TableCell>
-                        <TableCell align="center">{t.tablespecies.actions}</TableCell>
-                    </TableRow>    
-                </TableHead>
-                <TableBody>
+    return (<>
+    <TableContainer component={Paper} className="table">
+        <Table>
+            <TableHead>
                 <TableRow>
-                        <TableCell>fsdkjgh</TableCell>    
-                        <TableCell>fsdkjgh</TableCell>     
-                        <TableCell>fsdkjgh</TableCell>     
-                        <TableCell>fsdkjgh</TableCell>     
-                        <TableCell>fsdkjgh</TableCell>     
-                        <TableCell>fsdkjgh</TableCell>     
-                        <TableCell>fsdkjghsdfasdfasdfasdfasdfasdfasdfas</TableCell>    
+                    <TableCell sx={{fontWeight:'bold'}}>ESPECIE</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>CATEGORÍA</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>NOMBRE CIENTÍFICO</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>ORIGEN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>HÁBITAT</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>CLASIFICACIÓN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}}>INFORMACIÓN GENERAL</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">ACCIONES</TableCell>
+                </TableRow>    
+            </TableHead>
+            <TableBody>
+            {
+                species.map(spec => (
+                    <TableRow key={spec.id}>
+                        <TableCell>{spec.nombre_especie}</TableCell>    
+                        <TableCell>{spec.categoria}</TableCell>     
+                        <TableCell>{spec.nombre_cientifico}</TableCell>    
+                        <TableCell>{spec.origen}</TableCell>    
+                        <TableCell>{spec.habitat}</TableCell>    
+                        <TableCell>{spec.clasificacion}</TableCell>    
+                        <TableCell>{spec.informacion_general}</TableCell>    
                         <TableCell>
-                            <IconButton><Edit/></IconButton>
-                            <IconButton><Delete/></IconButton>
+                            <IconButton 
+                                className='actions'
+                                onClick={() => router.push('/speciesmaintainers/edit/' + spec.id)}
+                            >
+                                <Edit/>
+                            </IconButton>
+                            <IconButton 
+                                className='actions' 
+                                onClick={() => handlerDelete(spec.id)}
+                            >
+                                <Delete/>
+                            </IconButton>
                         </TableCell>    
-                    </TableRow>  
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            count={rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
                     </TableRow>
-                </TableFooter>
-            </Table>    
-        </TableContainer>
-        <style jsx global>{`
-            .table {
-                margin-top: 15px;
+                ))
             }
-        `}</style> 
-    </>
-    )
+            </TableBody>
+            <TableFooter>
+                <TableRow>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </TableRow>
+            </TableFooter>
+        </Table>    
+    </TableContainer>
+    <style jsx global>{`
+        .table {
+            margin-top: 15px;
+        }
+    `}</style> 
+    </>)
 }
 export default SpeciesTable
-// END COMPONENT

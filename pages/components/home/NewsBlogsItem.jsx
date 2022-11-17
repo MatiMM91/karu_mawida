@@ -1,43 +1,21 @@
-// IMPORTS
 import { 
-    Card,  
-    CardActions,  
-    CardContent, 
-    CardHeader, 
-    CardMedia, 
+    Box,
     Typography 
 }                       from "@mui/material"
-// END IMPORTS
-// COMPONENT
-const NewsBlogsItem = ({item, themeMode, changeTheme}) => {
+
+const NewsBlogsItem = ({item}) => {
     return (
-    <>
-        <Card sx={{margin:'20px 0'}}>
-            <CardActions sx={{display: 'flex', flexDirection: 'row', padding:1}}>
-                <CardContent sx={{margin:'0'}}>
-                    <CardHeader
-                        title={item.title}
-                        subheader={item.date}
-                    />
-                    <Typography variant="body2" color="text.secondary">
-                        {item.text}
-                    </Typography>
-                </CardContent>
-                <CardMedia
-                    component="img"
-                    sx={{width:150}}
-                    image={
-                        themeMode ?
-                        "/images/karumawidaclaro.png"
-                        :
-                        "/images/karumawidaoscuro.png"
-                    }
-                    alt="Paella dish"
-                />
-            </CardActions>
-        </Card>
-    </>
+    <Box sx={{margin:'25px 0'}}>
+        <Typography variant="h6">
+            {item.title}
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 0.8 }}>
+            {item.date}
+        </Typography>
+        <Typography variant="text" color="text.secondary">
+            {item.text}
+        </Typography>
+    </Box>
     )
 }
 export default NewsBlogsItem
-// END COMPONENT

@@ -1,29 +1,20 @@
-// IMPORTS
 import { 
     Box, 
     Typography 
 }                       from "@mui/material"
-import { useRouter }    from "next/router"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
-// END IMPORTS
-// COMPONENT
-const AboutLead = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
 
-    return (
-    <>
+const AboutLead = () => {
+    return (<>
     <Box className='lead'>
         <Typography variant='h4' color='primary'>
-            {t.about.subtitle}
+            Viaje a lo Natural
         </Typography>
         <Box className='leadtext'>
             <Typography variant='body' className='lead'>
-                {t.about.leaduno}
+            Este Parque nace desde el amor, la admiración, el respeto profundo y sincero que sentimos hacia la naturaleza, reconocemos en ella a la mejor maestra de la verdad, nuestra gran escuela y el hogar de tantos seres vivos… nuestro hogar.
             </Typography>
             <Typography variant='body'>
-                {t.about.leaddos}
+            Es por ello que nos propusimos proteger y restaurar activamente este bosque y vega-humedal, que comprende 5,5 hectáreas, las cuales hemos dividido en tres sectores (todas en proceso de restauración y regeneración natural):
             </Typography>
         </Box>
     </Box>
@@ -36,8 +27,6 @@ const AboutLead = () => {
             margin-top: 15px;
         }
     `}</style>
-    </>
-    )
+    </>)
 }   
 export default AboutLead
-// COMPONENT

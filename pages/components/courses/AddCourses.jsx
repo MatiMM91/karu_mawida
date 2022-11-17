@@ -1,11 +1,8 @@
-// IMPORTS
 import { 
     Button, 
     TextField, 
 }                       from "@mui/material"
 import { useRouter }    from "next/router"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
 import axios            from 'axios'
 import moment           from 'moment'
 import { 
@@ -13,20 +10,16 @@ import {
     useState 
 }                       from "react"
 import {toast}          from "react-toastify"
-// END IMPORTS
-// COMPONENT
-const AddCourses = () => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
-    const router = useRouter()
 
+const AddCourses = () => {
+    const router = useRouter()
     router.query.fecha_inicio = moment(router.query.fecha_inicio).format('YYYY-MM-DD')
     router.query.fecha_termino = moment(router.query.fecha_termino).format('YYYY-MM-DD')
 
     const [course, setCourse] = useState({
         curso: "",
         capacidad: "",
-        precio: 0,
+        precio: '',
         horas: '',
         fecha_inicio: '',
         fecha_termino: '',
@@ -69,79 +62,110 @@ const AddCourses = () => {
         }
     }, [])
 
-    return (
-    <>
+    return (<>
     <form className='form' method='post'>
         <TextField 
             name='curso' 
-            onChange={handleChange}
-            value={course.curso}
             className='inputs' 
             variant='standard' 
-            label={t.formcourses.course}
+            label='Curso'
+            value={course.curso}
+            onChange={handleChange}
         />
         <TextField 
             name='capacidad' 
-            onChange={handleChange} 
-            value={course.capacidad}
             className='inputs' 
             variant='standard' 
-            label={t.formcourses.capacity}
+            label='Capacidad'
+            value={course.capacidad}
+            onChange={handleChange} 
         />
         <TextField 
             name='precio' 
-            onChange={handleChange} 
+            className='inputs' 
+            variant='standard' 
+            label='Precio'
             value={course.precio}
-            className='inputs' 
-            variant='standard' 
-            label={t.formcourses.price}
-        />
-        <TextField 
-            name='horas' 
             onChange={handleChange} 
-            value={course.horas}
-            className='inputs' 
-            variant='standard' 
-            label={t.formcourses.hours} 
+        />
+        <TextField
             type='time'
+            name='horas' 
+            className='inputs' 
+            variant='standard' 
+            label='Horas'
+            value={course.horas}
+            onChange={handleChange} 
+            focused
         />
         <TextField 
+            type='date'
             name='fecha_inicio' 
-            onChange={handleChange} 
+            className='inputs' 
+            variant='standard' 
+            label='Fecha Inicio' 
             value={moment(course.fecha_inicio).format('YYYY-MM-DD')}
-            className='inputs' 
-            variant='standard' 
-            label={t.formcourses.startdate} 
-            type='date'
+            onChange={handleChange} 
+            focused
         />
         <TextField 
+            type='date'
             name='fecha_termino' 
-            onChange={handleChange} 
+            className='inputs' 
+            variant='standard' 
+            label='Fecha Termino'
             value={moment(course.fecha_termino).format('YYYY-MM-DD')}
-            className='inputs' 
-            variant='standard' 
-            label={t.formcourses.enddate} 
-            type='date'
-        />
-        <TextField 
-            name='img' 
             onChange={handleChange} 
-            value={course.img}
-            className='inputs' 
-            variant='standard' 
-            label={t.formcourses.img} 
-            type='file'
+            focused
         />
+        {
+        router.query.id ?
+            ''
+        :
+            <TextField 
+                type='file'
+                name='img' 
+                className='inputs' 
+                variant='standard' 
+                label='Imagen' 
+                value={course.img}
+                onChange={handleChange} 
+            />
+        }
         <TextField 
             name='descripcion' 
-            onChange={handleChange}
-            value={course.descripcion}
             className='inputs' 
             variant='standard' 
+            label='Descripción'
+            value={course.descripcion}
+            onChange={handleChange}
             multiline 
-            label={t.formcourses.description}
         />
-        <Button variant="contained" className='inputs' onClick={handleSubmit}>{t.formcourses.add}</Button>
+
+        <Button 
+            variant="contained" 
+            className='inputs' 
+            onClick={handleSubmit}
+        >
+            {
+            router.query.id ?    
+                'Editar'
+            :
+                'Agregar'
+            }
+        </Button>
+        {
+        router.query.id ?
+            <Button
+                variant="contained" 
+                className='inputs'
+                onClick={() => router.back()}
+            >
+                Volver    
+            </Button>
+        :
+            null    
+        }
     </form>
     <style jsx global>{`
         .form {
@@ -154,8 +178,6 @@ const AddCourses = () => {
             margin-top:    15px;
         }
     `}</style>
-    </>
-    )
+    </>)
 }
 export default AddCourses
-// END COMPONENT

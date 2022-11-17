@@ -1,62 +1,47 @@
-// IMPORTS
 import { 
-    Box, 
+    Grid, 
 }                       from "@mui/material"
-import { useRouter }    from "next/router"
-import en               from './lang/en'
-import es               from './lang/es'
-import Banner           from "./components/home/Banner"
 import NewsCards        from "./components/home/NewsCards"
 import LatestBlogs      from "./components/home/LatestBlogs"
-import Image            from "next/image"
-import Carousel         from 'react-material-ui-carousel'
-// END IMPORTS
+import axios            from "axios"
+import Banner           from './components/home/Banner'
 
-// COMPONENT
-export default function Home({themeMode, changeTheme}) {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
-
-    const imgsBanner = [
-        {
-            id: 1,
-            img: '/images/Banner.jpeg',
-        },
-        {
-            id: 2,
-            img: '/images/KarumawidaImg.jpg',
-        },
-        {
-            id: 3,
-            img: '/images/KaruOtono.jpg',
-        },
-    ]
-
-    return (
-    <>
-        <Box className='home'>
-            <Carousel animation='slide' navButtonsAlwaysInvisible={true}>
-                {
-                    imgsBanner.map(item => <Banner key={item.id} item={item}/>)    
-                }
-            </Carousel>
-            <NewsCards
-                themeMode={themeMode}
-                changeTheme={changeTheme}
-            />
+const Home = ({themeMode, changeTheme, species, courses}) => {
+    return (<>
+    <Banner/>
+    <Grid container className='home'>
+        <Grid item xs={12} sm={12} md={6}>    
             <LatestBlogs
                 themeMode={themeMode}
                 changeTheme={changeTheme}
             />
-        </Box>
-        <style jsx global>{`
-            .home {
-                min-height:     100vh;
-                padding:        0 60px;
-                padding-top:    100px;
-            }
-        `}</style>    
-    </>
-    )
+        </Grid>
+        <Grid item xs={12} sm={12} md={6}>
+            <NewsCards
+                themeMode={themeMode}
+                changeTheme={changeTheme}
+                courses={courses}
+                species={species}
+            />
+        </Grid>
+    </Grid>
+    <style jsx global>{`
+        .home {
+            min-height:     80vh;
+            padding-top:    80px;
+        }
+    `}</style>    
+    </>)
 }
-// END COMPONENT
+export default Home
+
+export const getServerSideProps = async (context) => {
+    const { data: species } = await axios.get("http://localhost:3000/api/species")
+    const { data: courses } = await axios.get("http://localhost:3000/api/courses")
+    return {
+        props: {
+            courses,
+            species,
+        }
+    }
+}

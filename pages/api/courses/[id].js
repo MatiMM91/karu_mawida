@@ -42,8 +42,8 @@ const updateCourse = async (req, res) => {
         await pool.query(
             'UPDATE cursos SET curso = ?, capacidad = ?, precio = ?, horas = ?, fecha_inicio = ?, fecha_termino = ?, descripcion = ? WHERE id = ?', 
             [curso, capacidad, precio, horas, fecha_inicio, fecha_termino, descripcion, id]
-            )
-            return res.status(204).json()
+        )
+        return res.status(204).json()
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }

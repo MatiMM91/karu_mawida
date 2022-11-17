@@ -1,4 +1,3 @@
-// IMPORTS
 import { 
     Card, 
     CardActionArea, 
@@ -8,13 +7,8 @@ import {
     Typography 
 }                       from "@mui/material"
 import { useRouter }    from "next/router"
-import en               from '../../lang/en'
-import es               from '../../lang/es'
-// END IMPORTS
-// COMPONENT
+
 const CoursesCard = ({courses}) => {
-    const {asPath, locale, pathname} = useRouter()
-    const t = locale === 'en' ? en : es
     const router = useRouter()
 
     return (
@@ -61,4 +55,3 @@ const CoursesCard = ({courses}) => {
     )
 }
 export default CoursesCard
-// END COMPONENT
