@@ -14,6 +14,7 @@ const CoursesCard = ({courses}) => {
     return (
     <Grid container>
     {
+    courses ?
     courses.map(course => (
         <Grid item key={course.id} xs={12} sm={6} md={4} xl={3}>
             <Card className="card">
@@ -50,6 +51,10 @@ const CoursesCard = ({courses}) => {
             `}</style>
         </Grid>
         ))
+    :
+    <Typography variant='h5'>
+        No hay cursos activos en estos momentos
+    </Typography>
     }
     </Grid>
     )

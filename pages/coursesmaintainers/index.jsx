@@ -25,12 +25,13 @@ const index = ({courses}) => {
         <Stack 
             direction={{ xs: 'column', sm: 'row' }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
+            sx={{display: 'flex', justifyContent: 'space-between'}}
         >
-            <Typography variant='h3'>Mantenedor de Cursos</Typography>
-            <Button onClick={handleOpen} sx={{fontWeight: 'bold'}}>
+            <Typography variant='h4' color='primary'>Mantenedor de Cursos</Typography>
+            <Button variant='outlined' onClick={handleOpen} sx={{fontWeight: 'bold'}}>
                 {
                     open ?
-                        'Cursos'
+                        'Ver Cursos'
                     :
                         'Agregar Curso'
                 }

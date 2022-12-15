@@ -5,29 +5,39 @@ import {
 import Library          from "../components/library/Library"
 import axios            from "axios"
 import Banner           from '../components/home/Banner'
+import Footer           from '../components/Footer'
 
-const index = ({library}) => {
+const index = ({themeMode, changeTheme, species}) => {
     return (<>
     <Banner/>
     <Box className='library'>
-        <Typography variant='h3'>Biblioteca</Typography>
-        <Library library={library}/>
+        <Typography variant='h4' color='primary'>
+            Biblioteca
+        </Typography>
+        {
+        species.map( spc => (
+            <Library spc={spc} key={spc.id}/>
+        ))   
+        }
     </Box>
+    <Footer
+        themeMode={themeMode}
+        changeTheme={changeTheme}  
+    />
     <style jsx global>{`
         .library {
             min-height:     100vh;
-            padding:        0 60px;
-            padding-top:    100px;
+            padding:        60px;
         }
     `}</style>
     </>)
 }
 
 export const getServerSideProps = async (context) => {
-    const { data: library } = await axios.get("http://localhost:3000/api/library")
+    const { data: species } = await axios.get("http://localhost:3000/api/species")
     return {
         props: {
-            library,
+            species,
         }
     }
 }

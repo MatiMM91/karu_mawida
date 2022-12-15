@@ -60,7 +60,7 @@ const LoginForm = () => {
                 {
                     pageState.error !== '' && <Alert severity='error' sx={{margin:'25px 0'}}>{simplifyError(pageState.error)}</Alert>
                 }
-                <Typography variant='h3'>
+                <Typography variant='h3' color='primary'>
                     Iniciar Sesión
                 </Typography>
                 <FormControl>
@@ -82,7 +82,8 @@ const LoginForm = () => {
                         value={user.password}
                     />
                     <Button 
-                        className="inputs" 
+                        className="inputs"
+                        variant='outlined'
                         disabled={pageState.processing}
                         onClick={handleSubmit}
                     >

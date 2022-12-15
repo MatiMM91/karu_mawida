@@ -49,6 +49,10 @@ const NavLogin = ({themeMode, changeTheme}) => {
             font-weight: bold;
             color: #${themeMode  ? 'ddd' : '555'};
         }
+        
+        .log:hover {
+            color: #117e41;
+        }
     `}</style>
     </>)
 }

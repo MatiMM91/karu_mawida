@@ -1,51 +1,62 @@
 import { 
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
+    Box,
+    Stack,
     Typography,
 }                       from "@mui/material"
 import moment           from 'moment'
+import Image            from "next/image"
+import { useRouter }    from "next/router"
 
-const NewsCoursesCard = ({themeMode, changeTheme, courses}) => {
+const NewsCoursesCard = ({themeMode, changeTheme, course}) => {
+    const router = useRouter()
     return (<>
-    {
-    courses.slice(-1).map(course => (
-    <Card sx={{display: 'flex', height: 200, width: '85%'}} key={course.id}>
-        <CardActionArea sx={{display: 'flex', flexDirection: 'row', padding:1}}>
-            <CardContent sx={{paddingRight: 5}}>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Próximo Curso
-                </Typography>
-                <Typography variant="h5" component="div">
-                    {course.curso}
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    {
-                        moment(course.fecha_inicio).format('DD MMM YYYY') + 
-                        ' - ' + 
-                        moment(course.fecha_termino).format('DD MMM YYYY')
-                    }
-                </Typography>
-                <Typography variant="body2" sx={{width: 250}}>
-                    {course.descripcion}
-                </Typography>
-            </CardContent>
-            <CardMedia
-                component="img"
-                sx={{width:100}}
-                image={
-                    themeMode ?
-                    "/images/karumawidaclaro.png"
-                    :
-                    "/images/karumawidaoscuro.png"
+    <Stack 
+        direction="row" 
+        className='newscourse'
+        onClick={() => router.push('/courses/course/' + course.id)}
+    >
+        <Image
+            width='120'
+            height='100'
+            src={
+                themeMode ?
+                "/images/karumawidaclaro.png"
+                :
+                "/images/karumawidaoscuro.png"
+            }
+            alt='Logo'
+        />
+        <Box className='textcourse'>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Próximo Curso
+            </Typography>
+            <Typography variant="h5" component="div">
+                {course.curso}
+            </Typography>
+            <Typography color="text.secondary">
+                {
+                    moment(course.fecha_inicio).format('DD MMM YYYY') + 
+                    ' - ' + 
+                    moment(course.fecha_termino).format('DD MMM YYYY')
                 }
-                alt='Logo'
-            />
-        </CardActionArea>
-    </Card>
-    ))
-    }
+            </Typography>
+        </Box>
+    </Stack>
+    <style jsx global>{`
+        .newscourse {
+            margin-top: 25px;
+            height:     150px;
+        }
+
+        .newscourse:hover {
+            cursor: pointer;
+        }
+
+        .textcourse {
+            margin-left: 15px;
+            margin-top: 35px;
+        }
+    `}</style>
     </>)
 }
 export default NewsCoursesCard

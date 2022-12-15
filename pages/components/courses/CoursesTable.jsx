@@ -3,10 +3,8 @@ import {
     Edit 
 }                       from "@mui/icons-material"
 import { 
-    FormControlLabel,
     IconButton,
     Paper, 
-    Switch, 
     Table, 
     TableBody, 
     TableCell, 
@@ -21,21 +19,28 @@ import { useState }     from "react"
 import moment           from 'moment'
 import Image            from "next/image"
 import axios            from "axios"
-import {toast}          from "react-toastify"
+import { toast }        from "react-toastify"
 
 const CoursesTable = ({courses}) => {
     const router = useRouter()
-    const [active, setActive] = useState(courses.activo)
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(5)
+    const [file, setFile] = useState()
+    const [pathImage, setPathImage] = useState('')
 
-    const rows = [1,2,3,4,5,6,7,8,9]
-
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    const blobsConvert = (buffer, name) => {
+        let image = buffer.toString('base64')
+        console.log(image)
+        return buffer
+    }
     
-    const handleActive = () => {
-        setActive(!active)
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage)
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(+event.target.value))
+        setPage(0)
     }
 
     const handlerDelete = async (id) => {
@@ -47,43 +52,54 @@ const CoursesTable = ({courses}) => {
         }
     }
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-  
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
     return (<>
     <TableContainer component={Paper} className="table">
         <Table>
             <TableHead>
                 <TableRow>
                     <TableCell sx={{fontWeight:'bold'}}>CURSO</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>CAPACIDAD</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>PRECIO</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>HORAS</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>FECHA INICIO</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>FECHA TERMINO</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">CAPACIDAD</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">PRECIO</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">HORAS</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">FECHA INICIO</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">FECHA TERMINO</TableCell>
                     <TableCell sx={{fontWeight:'bold'}}>IMAGEN</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>DESCRIPCIÓN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">DESCRIPCIÓN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">ACTIVO</TableCell>
                     <TableCell  sx={{fontWeight:'bold'}} align="center">ACCIONES</TableCell>
                 </TableRow>    
             </TableHead>
             <TableBody>
             {
-                courses.map(course => (
-                    <TableRow key={course.id}>
+                courses
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map(course => (
+                    <TableRow hover key={course.id}>
                         <TableCell>{course.curso}</TableCell>        
-                        <TableCell>{course.capacidad}</TableCell>        
-                        <TableCell>{course.precio}</TableCell>        
-                        <TableCell>{course.horas}</TableCell>        
-                        <TableCell>{moment(course.fecha_inicio).format('DD-MM-YYYY')}</TableCell>        
-                        <TableCell>{moment(course.fecha_termino).format('DD-MM-YYYY')}</TableCell>
-                        <TableCell><Image src={'/' + course.img} alt={course.curso} height={150} width={150}/></TableCell>        
+                        <TableCell align="center">{course.capacidad}</TableCell>        
+                        <TableCell align="center">{course.precio}</TableCell>        
+                        <TableCell align="center">{course.horas}</TableCell>        
+                        <TableCell align="center">{moment(course.fecha_inicio).format('DD-MM-YYYY')}</TableCell>        
+                        <TableCell align="center">{moment(course.fecha_termino).format('DD-MM-YYYY')}</TableCell>
+                        <TableCell>
+                            <Image
+                                alt={course.curso} 
+                                height={80} 
+                                width={120}
+                                src={'/' + blobsConvert(course.img, course.curso)} 
+                                // src={course.img} 
+                                // src={blobsConvert}
+                            />
+                        </TableCell>        
                         <TableCell>{course.descripcion}</TableCell>        
+                        <TableCell align="center">
+                        {
+                        course.activo === 1 ?
+                            'Activo'
+                        :
+                            'Inactivo'
+                        }
+                        </TableCell>        
                         <TableCell>
                             <IconButton 
                                 className='actions'
@@ -97,17 +113,6 @@ const CoursesTable = ({courses}) => {
                             >
                                 <Delete/>
                             </IconButton>
-                            <FormControlLabel
-                                label={
-                                    active ? 'Activo' : 'Inactivo'
-                                }
-                                control={
-                                    <Switch
-                                        checked={active}
-                                        onChange={handleActive}
-                                    />
-                                }
-                            />
                         </TableCell>         
                     </TableRow>
                 ))
@@ -116,8 +121,8 @@ const CoursesTable = ({courses}) => {
             <TableFooter>
                 <TableRow>
                     <TablePagination
-                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                        count={rows.length}
+                        rowsPerPageOptions={[5, 10, 25]}
+                        count={courses.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onPageChange={handleChangePage}

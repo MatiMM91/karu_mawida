@@ -1,36 +1,46 @@
-import { Grid }         from "@mui/material"
+import { Box }          from "@mui/material"
 import NewsCoursesCard  from "./NewsCoursesCard"
 import NewsLibraryCard  from "./NewsLibraryCard"
 
 const NewsCards = ({themeMode, changeTheme, species, courses}) => {
     return (<>
-    <Grid container spacing={4} className='news'>
-        <Grid item xs={12} className='newscards'>
-            <NewsLibraryCard
-                themeMode={themeMode}
-                changeTheme={changeTheme}
-                species={species}   
-            />
-        </Grid>
-        <Grid item xs={12} className='newscards'>    
-            <NewsCoursesCard
-                themeMode={themeMode}
-                changeTheme={changeTheme}
-                courses={courses}
-            />
-        </Grid>
-    </Grid>
+    <Box className='newscards'>
+    {
+    species.slice(-1).map(spc => (   
+        <NewsLibraryCard
+            themeMode={themeMode}
+            changeTheme={changeTheme}
+            key={spc.id}   
+            spc={spc}
+        />
+    ))
+    }
+    {
+    courses.slice(-1).map(course => (
+        <NewsCoursesCard
+            themeMode={themeMode}
+            changeTheme={changeTheme}
+            key={course.id}
+            course={course}
+        />
+    ))
+    }
+    </Box>
     <style jsx global>{`
         .newscards {
-            display: flex;
-            flex-diretion: row;
-            justify-content: space-around;
-            align-items: center;
+            padding-top:        25px;
+            margin-left:        60px;
+            display:            flex;
+            flex-direction:     column;
+            justify-content:    center;
+            align-item:         center;
         }
-
-        @media only screen and (max-width: 900px) {
-            .news {
-                margin: 25px 0;
+        
+        @media only screen and (min-width: 768px) and (max-width: 1535px) {
+            .newscards {
+                flex-direction:     row;
+                justify-content:    space-around;
+                margin-left:        0;
             }
         }
     `}</style>    

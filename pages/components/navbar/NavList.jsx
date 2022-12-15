@@ -11,7 +11,7 @@ import {
     useSession 
 }                       from "next-auth/react"
 
-const NavList = () => {
+const NavList = ({themeMode, changeTheme, theme}) => {
     const { data: session } = useSession()
 
     const links = [
@@ -72,16 +72,25 @@ const NavList = () => {
     session ?
         loginlinks.map(link => (
             <ListItem key={link.id}>
-                <Link href={link.link}><a>{link.text}</a></Link>
+                <Link href={link.link}><a className='item'>{link.text}</a></Link>
             </ListItem>
         ))
     :
         links.map(link => (
             <ListItem key={link.id}>
-                <Link href={link.link}><a>{link.text}</a></Link>
+                <Link href={link.link}><a className='item'>{link.text}</a></Link>
             </ListItem>
         ))
     }
+        <style jsx global>{`
+        .item {
+            font-weight: 500;
+        }
+        
+        .item:hover {
+            color: #117e41; 
+        }
+    `}</style>
     </>)
 }
 export default NavList

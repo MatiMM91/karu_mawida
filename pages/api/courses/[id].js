@@ -37,11 +37,13 @@ const deleteCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
     const { id } = req.query
-    const { curso, capacidad, precio, horas, fecha_inicio, fecha_termino, descripcion} = req.body
+    const { curso, capacidad, precio, horas, fecha_inicio, fecha_termino, img, descripcion, activo} = req.body
+
+    console.log(curso + ': ' + img)
     try {
         await pool.query(
-            'UPDATE cursos SET curso = ?, capacidad = ?, precio = ?, horas = ?, fecha_inicio = ?, fecha_termino = ?, descripcion = ? WHERE id = ?', 
-            [curso, capacidad, precio, horas, fecha_inicio, fecha_termino, descripcion, id]
+            'UPDATE cursos SET curso = ?, capacidad = ?, precio = ?, horas = ?, fecha_inicio = ?, fecha_termino = ?, img = ?, descripcion = ?, activo = ? WHERE id = ?', 
+            [curso, capacidad, precio, horas, fecha_inicio, fecha_termino, img, descripcion, activo, id]
         )
         return res.status(204).json()
     } catch (error) {

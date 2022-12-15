@@ -7,12 +7,13 @@ import SectorsList      from "../components/about/SectorsList"
 import AboutLead        from "../components/about/AboutLead"
 import AboutBody        from "../components/about/AboutBody"
 import Banner           from '../components/home/Banner'
+import Footer           from '../components/Footer'
 
-const index = () => {
+const index = ({themeMode, changeTheme}) => {
     return (<>
     <Banner/>
     <Box className='about'>
-        <Typography variant='h3'>
+        <Typography variant='h4' color='primary'>
             Acerca de karü Mawida
         </Typography>
         <AboutLead/>
@@ -20,6 +21,10 @@ const index = () => {
         <AboutBody/>
         <MissionVision/>
     </Box>
+    <Footer
+        themeMode={themeMode}
+        changeTheme={changeTheme}  
+    />
     <style jsx global>{`
         .about {
             min-height:     84vh;

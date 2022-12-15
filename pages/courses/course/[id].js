@@ -11,8 +11,9 @@ import {
 }                       from 'react'
 import axios            from 'axios'
 import moment           from 'moment'
+import Footer           from '../../components/Footer'
 
-const course = () => {
+const course = ({themeMode, changeTheme}) => {
     const router = useRouter()
     
     const [course, setCourse] = useState({
@@ -71,6 +72,10 @@ const course = () => {
             </Box>
         </Card>
     </Box>
+    <Footer
+        themeMode={themeMode}
+        changeTheme={changeTheme}   
+    />
     <style jsx global>{`
         .course {
             min-height:     80vh;

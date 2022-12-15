@@ -34,7 +34,7 @@ const SectorsList = () => {
                 <ListItemIcon>
                     <Park fontSize='large' color='primary'/>
                 </ListItemIcon>
-                <ListItemText primary='Bosque Nativo (Principalmente)' />
+                <ListItemText primary='Bosque Nativo (Principalmente)'/>
             </ListItem>
         </Grid>
     </Grid>

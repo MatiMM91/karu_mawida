@@ -12,7 +12,7 @@ const editcategory = () => {
             direction={{ xs: 'column', sm: 'row' }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
         >
-            <Typography variant='h3'>
+            <Typography variant='h4' color='primary'>
                 Editar Categoría
             </Typography>
         </Stack>
@@ -20,7 +20,7 @@ const editcategory = () => {
     </Box>
     <style jsx global>{`
         .categoriesmaintainers {
-            min-height:     80vh;
+            min-height:     100vh;
             padding:        0 60px;
             padding-top:    100px;
             padding-bottom: 40px;

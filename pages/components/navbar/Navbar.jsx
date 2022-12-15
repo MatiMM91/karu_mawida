@@ -16,7 +16,7 @@ import LogoNav          from "./LogoNav"
 import NavList          from "./NavList"
 import NavLogin         from "./NavLogin"
 
-const Navbar = ({themeMode, changeTheme}) => {
+const Navbar = ({themeMode, changeTheme, theme}) => {
     const [open, setOpen] = useState(false)
 
     const handleOpen = () => {
@@ -27,7 +27,7 @@ const Navbar = ({themeMode, changeTheme}) => {
     <AppBar className='appbar'>
         <Toolbar>
             <IconButton className='menubtn' onClick={handleOpen}>
-                <Menu/>
+                <Menu className='menuicon'/>
             </IconButton>
             <LogoNav themeMode={themeMode} changeTheme={changeTheme}/>
             <Stack className={styles.menubar} direction='row'>
@@ -62,7 +62,8 @@ const Navbar = ({themeMode, changeTheme}) => {
     </Drawer>
     <style jsx global>{`
         .appbar {
-            background-color: #${themeMode  ? '111' : 'fff'};
+            background-color: #${themeMode  ? '000' : 'fff'};
+            padding: 5px 0;
         }
 
         .listnav {
@@ -73,7 +74,10 @@ const Navbar = ({themeMode, changeTheme}) => {
 
         .menubtn {
             display: none;
-            margin: 25px 0;
+        }
+        
+        .menuicon:hover {
+            color: #117e41;
         }
 
         .menu {

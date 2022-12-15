@@ -29,12 +29,13 @@ const index = ({species, categories}) => {
         <Stack 
             direction={{ xs: 'column', sm: 'row' }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
+            sx={{display: 'flex', justifyContent: 'space-between'}}
         >
-            <Typography variant='h3'>Mantenedor de Especies</Typography>
-            <Button onClick={handleOpen} sx={{fontWeight: 'bold'}}>
+            <Typography variant='h4' color='primary'>Mantenedor de Especies</Typography>
+            <Button variant='outlined' onClick={handleOpen} sx={{fontWeight: 'bold'}}>
                 {
                     open ?
-                        'Especies'
+                        'Ver Especies'
                     :
                         'Agregar Especie'
                 }

@@ -22,13 +22,17 @@ import {toast}          from "react-toastify"
 const CategoriesTable = ({categories}) => {
     const router = useRouter()
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(5)
 
-    const rows = [1,2,3,4,5,6,7,8,9]
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage)
+    };
   
-    const emptyRows =
-      page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(parseInt(+event.target.value))
+      setPage(0)
+    }
+
     const handlerDelete = async (id) => {
         try {
             await axios.delete('/api/categories/' + id)
@@ -38,32 +42,25 @@ const CategoriesTable = ({categories}) => {
         }
     }
 
-    const handleChangePage = (event, newPage) => {
-      setPage(newPage);
-    };
-  
-    const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
-
     return (<>
     <TableContainer component={Paper} className="table">
         <Table>
             <TableHead>
                 <TableRow>
                     <TableCell sx={{fontWeight:'bold'}}>CATEGORÍA</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>CLASIFICACIÓN</TableCell>
-                    <TableCell sx={{fontWeight:'bold'}}>DESCRIPCIÓN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">CLASIFICACIÓN</TableCell>
+                    <TableCell sx={{fontWeight:'bold'}} align="center">DESCRIPCIÓN</TableCell>
                     <TableCell sx={{fontWeight:'bold'}} align="center">ACCIONES</TableCell>
                 </TableRow>    
             </TableHead>
             <TableBody>
             {
-                categories.map(category => (
-                    <TableRow key={category.id}>
+                categories
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map(category => (
+                    <TableRow hover key={category.id}>
                         <TableCell>{category.categoria}</TableCell>    
-                        <TableCell>{category.clasificacion}</TableCell>     
+                        <TableCell align="center">{category.clasificacion}</TableCell>     
                         <TableCell>{category.descripcion}</TableCell>    
                         <TableCell>
                             <IconButton 
@@ -86,8 +83,8 @@ const CategoriesTable = ({categories}) => {
             <TableFooter>
                 <TableRow>
                     <TablePagination
-                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                        count={rows.length}
+                        rowsPerPageOptions={[5, 10, 25]}
+                        count={categories.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onPageChange={handleChangePage}

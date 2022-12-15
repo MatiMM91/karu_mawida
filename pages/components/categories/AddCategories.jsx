@@ -2,6 +2,9 @@ import {
     Box, 
     Button, 
     FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
     TextField,
 }                       from "@mui/material"
 import { useRouter }    from "next/router"
@@ -62,14 +65,23 @@ const AddCategories = () => {
                 value={category.categoria}
                 onChange={handleChange}
             />
-            <TextField 
-                name='clasificacion'
-                className='inputs' 
-                variant='standard' 
-                label='Clasificación'
-                value={category.clasificacion}
-                onChange={handleChange}
-            />
+            <FormControl 
+                className='inputs'
+                variant='standard'
+            >
+                <InputLabel id='clasification'>Clasificación</InputLabel>
+                <Select
+                    labelId='clasification'
+                    label='Clasificación'
+                    id='clasificacion'
+                    name='clasificacion'
+                    value={category.clasificacion}
+                    onChange={handleChange}
+                >
+                    <MenuItem value='flora'>Flora</MenuItem>
+                    <MenuItem value='fauna'>Fauna</MenuItem>
+                </Select>
+            </FormControl>
             <TextField
                 name='descripcion' 
                 className='inputs' 

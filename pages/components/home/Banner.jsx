@@ -18,7 +18,7 @@ const Banner = () => {
             <Typography variant='h3'>
                 Valdivia, Cultura y Naturaleza
             </Typography>
-            <Typography variant='body'>
+            <Typography variant='h6'>
                 “Conservación es un estado de armonía entre el hombre y la tierra” Aldo Leopold.
             </Typography>
         </Box>
@@ -35,12 +35,20 @@ const Banner = () => {
         }
         
         .bannertitle {
-            background-color:       rgba(0, 0, 0, 0.4);
+            background-color:       rgba(0, 0, 0, 0.2);
             color:                  #fff;
             position:               absolute;
-            top:                    45%;
+            height:                 100%;
             width:                  100%;
-            padding-left:           15px;
+            padding:                8%;
+            text-align:             center;
+        }
+        
+        @media only screen and (max-width: 1024px) {
+            .bannertitle {
+                padding:            15% 10%;
+            }
+            
         }
     `}</style>
     </>)
